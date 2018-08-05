@@ -8,7 +8,10 @@ class Building(models.Model):
     name = models.CharField(max_length=10)
 
     def __str__(self):
-        return self.name
+        return "{}".format(self.name)
+
+    def get_building(self):
+        self.name
 
 
 class Apartment(models.Model):
