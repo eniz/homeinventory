@@ -12,7 +12,7 @@ class BuildingListCreate(generics.ListCreateAPIView):
     serializer_class = serializers.BuildingSerializer
 
 
-class BuildingDetail(generics.RetrieveUpdateAPIView):
+class BuildingDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Building.objects.all()
     serializer_class = serializers.BuildingSerializer
 
@@ -22,19 +22,9 @@ class ApartmentListCreate(generics.ListCreateAPIView):
     serializer_class = serializers.ApartmentSerializer
 
 
-class ApartmentDetail(generics.RetrieveUpdateAPIView):
+class ApartmentDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Apartment.objects.all()
     serializer_class = serializers.ApartmentSerializer
-
-
-class ApartmentList(generics.ListAPIView):
-    queryset = Apartment.objects.all()
-    serializer_class = serializers.ApartmentSerializer
-
-    def get_queryset(self):
-        queryset = super(ApartmentList, self).get_queryset()
-        building_id = self.kwargs['pk']
-        return queryset.filter(building_id=building_id)
 
 
 class RoomListCreate(generics.ListCreateAPIView):

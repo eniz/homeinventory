@@ -16,7 +16,10 @@ class Building(models.Model):
 
 class Apartment(models.Model):
     number = models.CharField(max_length=50)
-    building = models.ForeignKey(Building)
+    building = models.ForeignKey(Building, related_name='apartments')
+
+    class Meta:
+        unique_together = ('building', 'number')
 
     def __str__(self):
         return str(self.number) + '-' + self.building.name
@@ -24,7 +27,7 @@ class Apartment(models.Model):
 
 class Room(models.Model):
     name = models.CharField(max_length=50)
-    apartment = models.ForeignKey(Apartment)
+    apartment = models.ForeignKey(Apartment, related_name='rooms')
 
     def __str__(self):
         return self.apartment.number + '-' + str(self.name)
@@ -33,7 +36,7 @@ class Room(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=50)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    room = models.ForeignKey(Room)
+    room = models.ForeignKey(Room, related_name='products')
 
     def __str__(self):
         return str(self.name) + '-' + self.room.name
